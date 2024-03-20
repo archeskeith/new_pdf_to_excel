@@ -118,23 +118,22 @@ def run_extract():
 
 @app.route('/run_again', methods=['POST'])
 def run_again():
-    # if request.method == 'POST':
     textarea_content = request.form.get('dictionaryTextbox')  
     
-    
-    # find indexes
+    # Find indexes
     start_index = textarea_content.find('{')
     end_index = textarea_content.rfind('}')
     dictionary_str = textarea_content[start_index:end_index+1]
 
-    # parsing the string and making it into a dictionary
+    # Parsing the string and making it into a dictionary
     my_dict = ast.literal_eval(dictionary_str.strip())
     
     count = count_exported_csv_files(current_dir+'/output/')
-    transfer_to_excel(count,my_dict)
+    transfer_to_excel(count, my_dict)
     delete_exported_csv_files(current_dir+'/output/')
     delete_temp_files()
     return "CSV extraction successful"
+
 
 @app.route('/go_back',methods=['POST'])
 def back_to_home():
